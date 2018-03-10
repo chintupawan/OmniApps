@@ -1,0 +1,10 @@
+D:\@SideProj\OmniApps\omninotes\OmniNotesWebApp\bin\Debug\netcoreapp2.0\OmniNotesWebApp.dll
+D:\@SideProj\OmniApps\omninotes\OmniNotesWebApp\bin\Debug\netcoreapp2.0\OmniNotesWebApp.deps.json
+D:\@SideProj\OmniApps\omninotes\OmniNotesWebApp\bin\Debug\netcoreapp2.0\OmniNotesWebApp.runtimeconfig.json
+D:\@SideProj\OmniApps\omninotes\OmniNotesWebApp\bin\Debug\netcoreapp2.0\OmniNotesWebApp.runtimeconfig.dev.json
+D:\@SideProj\OmniApps\omninotes\OmniNotesWebApp\obj\Debug\netcoreapp2.0\OmniNotesWebApp.csprojResolveAssemblyReference.cache
+D:\@SideProj\OmniApps\omninotes\OmniNotesWebApp\obj\Debug\netcoreapp2.0\OmniNotesWebApp.csproj.CoreCompileInputs.cache
+D:\@SideProj\OmniApps\omninotes\OmniNotesWebApp\obj\Debug\netcoreapp2.0\OmniNotesWebApp.AssemblyInfoInputs.cache
+D:\@SideProj\OmniApps\omninotes\OmniNotesWebApp\obj\Debug\netcoreapp2.0\OmniNotesWebApp.AssemblyInfo.cs
+D:\@SideProj\OmniApps\omninotes\OmniNotesWebApp\obj\Debug\netcoreapp2.0\OmniNotesWebApp.dll
+D:\@SideProj\OmniApps\omninotes\OmniNotesWebApp\obj\Debug\netcoreapp2.0\OmniNotesWebApp.pdb

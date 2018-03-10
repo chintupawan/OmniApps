@@ -1,0 +1,10 @@
+D:\@SideProj\OmniApps\omninotes\OmniNotesContracts\bin\Debug\netcoreapp2.0\OmniNotesContracts.deps.json
+D:\@SideProj\OmniApps\omninotes\OmniNotesContracts\bin\Debug\netcoreapp2.0\OmniNotesContracts.dll
+D:\@SideProj\OmniApps\omninotes\OmniNotesContracts\bin\Debug\netcoreapp2.0\OmniNotesContracts.pdb
+D:\@SideProj\OmniApps\omninotes\OmniNotesContracts\bin\Debug\netcoreapp2.0\OmniNotesModels.dll
+D:\@SideProj\OmniApps\omninotes\OmniNotesContracts\bin\Debug\netcoreapp2.0\OmniNotesModels.pdb
+D:\@SideProj\OmniApps\omninotes\OmniNotesContracts\obj\Debug\netcoreapp2.0\OmniNotesContracts.csprojResolveAssemblyReference.cache
+D:\@SideProj\OmniApps\omninotes\OmniNotesContracts\obj\Debug\netcoreapp2.0\OmniNotesContracts.csproj.CoreCompileInputs.cache
+D:\@SideProj\OmniApps\omninotes\OmniNotesContracts\obj\Debug\netcoreapp2.0\OmniNotesContracts.csproj.CopyComplete
+D:\@SideProj\OmniApps\omninotes\OmniNotesContracts\obj\Debug\netcoreapp2.0\OmniNotesContracts.dll
+D:\@SideProj\OmniApps\omninotes\OmniNotesContracts\obj\Debug\netcoreapp2.0\OmniNotesContracts.pdb
