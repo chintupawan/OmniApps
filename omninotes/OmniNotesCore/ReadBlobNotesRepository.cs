@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using OmniNotesContracts;
 using OmniNotesModels.Models;
 
@@ -12,8 +14,10 @@ namespace OmniNotesCore
         {
             Storage = storage;
         }
-        public IEnumerable<Note> GetAllNotes(string userId)
+        public async Task<IEnumerable<Note>> GetAllNotes(string userId)
         {
+            var notesDto = await Storage.GetAllNotes(userId);
+            notesDto.GroupBy(i => i.NotesTitle).GroupBy(i => i.GroupBy(j => j.SectionTitle));
             throw  new NotImplementedException();
         }
 

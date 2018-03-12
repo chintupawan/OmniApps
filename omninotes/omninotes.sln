@@ -5,13 +5,19 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmniNotesApi", "OmniNotesApi\OmniNotesApi.csproj", "{552B521E-D186-4C44-BF70-1468A20056B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmniNotesCore", "OmniNotesCore\OmniNotesCore.csproj", "{5CB1C3AB-4AA2-4DD4-BAB4-65E33F0C4BB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmniNotesCore", "OmniNotesCore\OmniNotesCore.csproj", "{5CB1C3AB-4AA2-4DD4-BAB4-65E33F0C4BB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmniNotesContracts", "OmniNotesContracts\OmniNotesContracts.csproj", "{87C46467-138F-49E5-AC6A-E6F56CA2E400}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmniNotesContracts", "OmniNotesContracts\OmniNotesContracts.csproj", "{87C46467-138F-49E5-AC6A-E6F56CA2E400}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmniNotesModels", "OmniNotesModels\OmniNotesModels.csproj", "{CA92A211-95F8-41D3-8124-8E2000F2D4DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmniNotesModels", "OmniNotesModels\OmniNotesModels.csproj", "{CA92A211-95F8-41D3-8124-8E2000F2D4DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmniNotesWebApp", "OmniNotesWebApp\OmniNotesWebApp.csproj", "{66CF31A9-DA30-4E65-A108-0F5FC63FC17B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OmniNotesWebApp", "OmniNotesWebApp\OmniNotesWebApp.csproj", "{66CF31A9-DA30-4E65-A108-0F5FC63FC17B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmniNotes-IntegrationTests", "OmniNotes-IntegrationTests\OmniNotes-IntegrationTests.csproj", "{DE7543CA-6D92-47AA-B839-EE4C117520C9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0A9E08CF-8561-47B0-BEE5-638299EEF75E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OmniNotes-UnitsTests", "OmniNotes-UnitsTests\OmniNotes-UnitsTests.csproj", "{4046738D-31ED-4702-A920-F5C37752ADB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +45,21 @@ Global
 		{66CF31A9-DA30-4E65-A108-0F5FC63FC17B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66CF31A9-DA30-4E65-A108-0F5FC63FC17B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66CF31A9-DA30-4E65-A108-0F5FC63FC17B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE7543CA-6D92-47AA-B839-EE4C117520C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE7543CA-6D92-47AA-B839-EE4C117520C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE7543CA-6D92-47AA-B839-EE4C117520C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE7543CA-6D92-47AA-B839-EE4C117520C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4046738D-31ED-4702-A920-F5C37752ADB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4046738D-31ED-4702-A920-F5C37752ADB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4046738D-31ED-4702-A920-F5C37752ADB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4046738D-31ED-4702-A920-F5C37752ADB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DE7543CA-6D92-47AA-B839-EE4C117520C9} = {0A9E08CF-8561-47B0-BEE5-638299EEF75E}
+		{4046738D-31ED-4702-A920-F5C37752ADB4} = {0A9E08CF-8561-47B0-BEE5-638299EEF75E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4C9EF0F7-BE34-4BB3-8D49-5E59F8195E8B}
