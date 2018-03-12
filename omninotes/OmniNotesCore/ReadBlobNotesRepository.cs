@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using OmniNotesContracts;
+using OmniNotesModels.DTO;
 using OmniNotesModels.Models;
 
 namespace OmniNotesCore
@@ -16,34 +17,54 @@ namespace OmniNotesCore
         }
         public async Task<IEnumerable<Note>> GetAllNotes(string userId)
         {
-            var notesDto = await Storage.GetAllNotes(userId);
-            notesDto.GroupBy(i => i.NotesTitle).GroupBy(i => i.GroupBy(j => j.SectionTitle));
-            throw  new NotImplementedException();
+            var notesDto = await Storage.GetAllNotesWithOutContent(userId);
+            return MapDtoNotes(notesDto);
         }
 
-        public Note GetNote(string userId, string noteTitle)
+        private static IEnumerable<Note> MapDtoNotes(IEnumerable<BlobDto> notesDto)
         {
-            throw new NotImplementedException();
+            var notes = notesDto.GroupBy(i => i.NotesTitle)
+                .Select(i => new Note
+                {
+                    Title = i.Key,
+                    Sections = i.GroupBy(j => j.SectionTitle)
+                        .Select(k => new Section()
+                        {
+                            Title = k.Key,
+                            Pages = k.Select(l => new Page()
+                            {
+                                Title = l.PageTitle,
+                                Body = l.Content,
+                                LastModifiedDateTime = l.LastModifiedUtc.Value.DateTime,
+                                SelfUrl = l.Url.AbsoluteUri,
+                                RelativeLocation = l.PageLocation
+                            }).ToList()
+                        }).ToList()
+                });
+            return notes;
         }
 
-        public Section GetSection(string userId, string noteTitle, string sectionTitle)
+        public async Task<Note> GetNote(string userId, string noteTitle)
         {
-            throw new NotImplementedException();
+            var dto = await Storage.GetFullNotesWithContent(userId, noteTitle);
+            return MapDtoNotes(dto).FirstOrDefault();
         }
 
-        public IEnumerable<Section> GetSections(string userId, string noteTitle)
+        public async Task<Page> GetPage(string userId, string pageLocation)
         {
-            throw new NotImplementedException();
+            var dto = await Storage.DownloadNotes(userId, pageLocation);
+            var page = new Page
+            {
+                Title = dto.PageTitle,
+                SectionTitle = dto.SectionTitle,
+                Body = dto.Content,
+                LastModifiedDateTime = dto.LastModifiedUtc.GetValueOrDefault().DateTime,
+                NoteTitle = dto.NotesTitle,
+                SelfUrl = dto.Url.AbsoluteUri,
+                RelativeLocation = dto.PageLocation
+            };
+            return page;
         }
 
-        public Page GetPage(string userId, string noteTitle, string sectionTitle, string pageTitle)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Page> GetPages(string userId, string noteTitle, string sectionTitle)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

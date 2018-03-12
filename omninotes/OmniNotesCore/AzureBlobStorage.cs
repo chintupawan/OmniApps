@@ -11,7 +11,7 @@ using OmniNotesModels.DTO;
 
 namespace OmniNotesCore
 {
-   
+
 
     public class AzureBlobStorage : IStorage
     {
@@ -39,48 +39,50 @@ namespace OmniNotesCore
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public async Task<IEnumerable<BlobDto>> GetAllNotes(string userId)
+        public async Task<IEnumerable<BlobDto>> GetAllNotesWithOutContent(string userId)
         {
-            BlobContinuationToken blobContinuationToken = null;
-            var directory = _cloudBlobContainer.GetDirectoryReference($"{userId}");
-            var blobs = await directory.ListBlobsSegmentedAsync(true, BlobListingDetails.Metadata, Int32.MaxValue,
-                blobContinuationToken, new BlobRequestOptions(), new OperationContext());
-            return blobs.Results.Select(i =>
-            {
-                var bl = ((CloudBlockBlob)i);
-                return new BlobDto()
-                {
-                    NotesTitle = bl.Metadata.ContainsKey(NotesKey) ? bl.Metadata[NotesKey] : "Unknown",
-                    SectionTitle = bl.Metadata.ContainsKey(SectionKey) ? bl.Metadata[SectionKey] : "Unknown",
-                    PageTitle = bl.Metadata.ContainsKey(PageTitleKey) ? bl.Metadata[PageTitleKey] : "Unknown",
-                    LastModifiedUtc = bl.Properties.LastModified,
-                    PageLocation = bl.Name,
-                    Length = bl.Properties.Length,
-                    Url = bl.Uri,
-                    Etag = bl.Properties.ETag
-                };
-            });
+            return await GetAllNotesOrFullNotes(userId);
         }
-        
+
+        /// <summary>
+        /// Gets a note with Full Content
+        /// </summary>
+        /// <param name="userId">userId</param>
+        /// <param name="noteTitle">notes title</param>
+        /// <returns>BlobDto</returns>
+        public async Task<IEnumerable<BlobDto>> GetFullNotesWithContent(string userId, string noteTitle)
+        {
+            return await GetAllNotesOrFullNotes(userId, noteTitle);
+        }
+
         /// <summary>
         /// Download notes
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="blobName"></param>
         /// <returns></returns>
-        public async Task<string> DownloadNotes(string userId, string blobName)
+        public async Task<BlobDto> DownloadNotes(string userId, string blobLocation)
         {
-            var blobRef = _cloudBlobContainer.GetBlockBlobReference(blobName);
-            string text = await blobRef.DownloadTextAsync();
-            return text;
+            var blobRef = _cloudBlobContainer.GetBlockBlobReference(blobLocation);
+            var dto = new BlobDto()
+            {
+                PageTitle = blobRef.Metadata[PageTitleKey],
+                SectionTitle = blobRef.Metadata[SectionKey],
+                NotesTitle = blobRef.Metadata[NotesKey],
+                Url = blobRef.Uri,
+                LastModifiedUtc = blobRef.Properties.LastModified,
+                PageLocation = blobRef.Name
+            };
+            dto.Content = await blobRef.DownloadTextAsync();
+            return dto;
         }
 
         public async Task<BlobDto> CreateNewNote(string userId, string noteTitle, string sectionTitle, string pageTitle, string content)
         {
             var currentUtc = DateTime.UtcNow.ToString("O");
-            string defaultSectionTitle = !string.IsNullOrEmpty(sectionTitle)?sectionTitle: "Section1";
-            string defaultPageTitle = !string.IsNullOrEmpty(pageTitle)?pageTitle: $"Page1{currentUtc}";
-            
+            string defaultSectionTitle = !string.IsNullOrEmpty(sectionTitle) ? sectionTitle : "Section1";
+            string defaultPageTitle = !string.IsNullOrEmpty(pageTitle) ? pageTitle : $"Page1{currentUtc}";
+
             var blob = _cloudBlobContainer.GetBlockBlobReference($"{userId}/{noteTitle}/{defaultSectionTitle}/{defaultPageTitle}");
             blob.Metadata.Add(NotesKey, noteTitle);
             blob.Metadata.Add(SectionKey, defaultSectionTitle);
@@ -101,7 +103,34 @@ namespace OmniNotesCore
 
         public async Task<BlobDto> UpdateNote(string userId, string blobLocation, string content)
         {
-            throw  new NotImplementedException();
+            throw new NotImplementedException();
+        }
+
+        private async Task<IEnumerable<BlobDto>> GetAllNotesOrFullNotes(string userId, string noteTitle = "")
+        {
+            BlobContinuationToken blobContinuationToken = null;
+            var directory = string.IsNullOrWhiteSpace(noteTitle)
+                            ? _cloudBlobContainer.GetDirectoryReference($"{userId}")
+                            : _cloudBlobContainer.GetDirectoryReference($"{userId}/{noteTitle}");
+
+            var blobs = await directory.ListBlobsSegmentedAsync(true, BlobListingDetails.Metadata, Int32.MaxValue,
+                blobContinuationToken, new BlobRequestOptions(), new OperationContext());
+
+            return blobs.Results.Select(i =>
+            {
+                var bl = ((CloudBlockBlob)i);
+                return new BlobDto()
+                {
+                    NotesTitle = bl.Metadata.ContainsKey(NotesKey) ? bl.Metadata[NotesKey] : "Unknown",
+                    SectionTitle = bl.Metadata.ContainsKey(SectionKey) ? bl.Metadata[SectionKey] : "Unknown",
+                    PageTitle = bl.Metadata.ContainsKey(PageTitleKey) ? bl.Metadata[PageTitleKey] : "Unknown",
+                    LastModifiedUtc = bl.Properties.LastModified,
+                    PageLocation = bl.Name,
+                    Length = bl.Properties.Length,
+                    Url = bl.Uri,
+                    Etag = bl.Properties.ETag
+                };
+            });
         }
     }
 }

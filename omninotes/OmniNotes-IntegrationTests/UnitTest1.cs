@@ -14,7 +14,7 @@ namespace OmniNotes_IntegrationTests
         public void GetAllNotesTest()
         {
             AzureBlobStorage abs = new AzureBlobStorage(str);
-            var notes = abs.GetAllNotes("pavan");
+            var notes = abs.GetAllNotesWithOutContent("pavan");
             var count = notes.Result.Count();
         }
 

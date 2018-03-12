@@ -8,3 +8,4 @@ D:\@SideProj\OmniApps\omninotes\OmniNotesWebApp\obj\Debug\netcoreapp2.0\OmniNote
 D:\@SideProj\OmniApps\omninotes\OmniNotesWebApp\obj\Debug\netcoreapp2.0\OmniNotesWebApp.AssemblyInfo.cs
 D:\@SideProj\OmniApps\omninotes\OmniNotesWebApp\obj\Debug\netcoreapp2.0\OmniNotesWebApp.dll
 D:\@SideProj\OmniApps\omninotes\OmniNotesWebApp\obj\Debug\netcoreapp2.0\OmniNotesWebApp.pdb
+D:\@SideProj\OmniApps\omninotes\OmniNotesWebApp\bin\Debug\netcoreapp2.0\OmniNotesWebApp.pdb

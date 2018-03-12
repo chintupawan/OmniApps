@@ -9,5 +9,8 @@ namespace OmniNotesModels.Models
         public string Title { get; set; }
         public string Body { get; set; }
         public string SelfUrl { get; set; }
+        public string NoteTitle { get; set; }
+        public string SectionTitle { get; set; }
+        public string RelativeLocation { get; set; }
     }
 }
