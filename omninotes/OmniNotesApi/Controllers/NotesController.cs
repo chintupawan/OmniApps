@@ -4,31 +4,41 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OmniNotesContracts;
+using OmniNotesModels.Models;
 
 namespace OmniNotesApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Notes")]
-    public class NotesController : Controller
+    [Route("api/ReadNotes")]
+    public class ReadNotesController : Controller
     {
+        private readonly IReadNotesRepository _notesRepository;
+        private readonly ITakeNotesRepository _takeNotesRepository;
+        public ReadNotesController(IReadNotesRepository notesRepository, ITakeNotesRepository takeNotesRepository)
+        {
+            _notesRepository = notesRepository;
+            _takeNotesRepository = takeNotesRepository;
+        }
         // GET: api/Notes
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IEnumerable<Note>> Get()
         {
-            return new string[] { "value1", "value2" };
+            return await _notesRepository.GetAllNotes("pavan");
         }
 
         // GET: api/Notes/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{noteTitle}", Name = "Get")]
+        public async Task<Note> Get(string noteTitle)
         {
-            return "value";
+            return await _notesRepository.GetNote("", noteTitle);
         }
         
         // POST: api/Notes
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpPost("{noteTitle}")]
+        public async Task<Note> Post(string noteTitle)
         {
+            return await _takeNotesRepository.CreateNewNote("", noteTitle);
         }
         
         // PUT: api/Notes/5

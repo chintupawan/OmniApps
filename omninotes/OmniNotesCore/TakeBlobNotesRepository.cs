@@ -16,23 +16,25 @@ namespace OmniNotesCore
         {
             Storage = storage;
         }
-        public async Task<Note> CreateNewNote(string userId, Note note)
+        public async Task<Note> CreateNewNote(string userId, string noteTitle)
         {
-            const string untitleSection = "Untitled Section";
-            const string untitlePage = "Untitled Page";
-            var dto = await Storage.CreateNewNote(userId, note.Title, untitleSection ,untitlePage, "");
-            note.Sections = new List<Section>();
-            var section = new Section
-            {
-                Title = untitleSection,
-                Pages = new List<Page>() { new Page() { Title = untitlePage } }
-            };
-            note.Sections.Add(section);
+            var utc = DateTime.Now.ToString("O");
+            string untitleSection = $"Untitled Section-{utc}";
+            string untitlePage = $"Untitled Page-{utc}";
 
-            var firstPage = note.Sections.First().Pages.First();
-            firstPage.SelfUrl = dto.Url.AbsoluteUri;
-            firstPage.LastModifiedDateTime = dto.LastModifiedUtc.Value.UtcDateTime;
-            firstPage.RelativeLocation = dto.PageLocation;
+            var dto = await Storage.CreateNewNote(userId, noteTitle, untitleSection, untitlePage, "");
+            var note = new Note() { Title = noteTitle };
+            var section = new Section { Title = untitleSection };
+            var page = new Page()
+            {
+                Title = untitlePage,
+                SelfUrl = dto.Url.AbsoluteUri,
+                LastModifiedDateTime = dto.LastModifiedUtc?.UtcDateTime ?? DateTime.UtcNow,
+                RelativeLocation = dto.PageLocation
+            };
+
+            section.Pages.Add(page);
+            note.Sections.Add(section);
             return note;
         }
 
@@ -41,7 +43,7 @@ namespace OmniNotesCore
             throw new NotImplementedException();
         }
 
-        public Section CreateSection(string userId, string noteTitle, Section section)
+        public Section CreateSection(string userId, string noteTitle, string sectionTitle)
         {
             throw new NotImplementedException();
         }
