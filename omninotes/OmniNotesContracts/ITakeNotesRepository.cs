@@ -7,6 +7,6 @@ namespace OmniNotesContracts
     {
         Task<Note> CreateNewNote(string userId, string noteTitle);
         Section CreateSection(string userId, string noteTitle, string section);
-        Page CreatePage(string userId, string noteTitle, string sectionTitle, Page page);
+        Task<Page> CreatePage(string userId, Page page);
     }
 }

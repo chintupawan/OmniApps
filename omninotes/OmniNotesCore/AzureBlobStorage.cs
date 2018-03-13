@@ -79,7 +79,7 @@ namespace OmniNotesCore
 
         public async Task<BlobDto> CreateNewNote(string userId, string noteTitle, string sectionTitle, string pageTitle, string content)
         {
-            var currentUtc = DateTime.UtcNow.ToString("O");
+            var currentUtc = DateTime.UtcNow.ToString("MMddyyyyhhmmsstt");
             string defaultSectionTitle = !string.IsNullOrEmpty(sectionTitle) ? sectionTitle : "Section1";
             string defaultPageTitle = !string.IsNullOrEmpty(pageTitle) ? pageTitle : $"Page1{currentUtc}";
 
@@ -87,13 +87,13 @@ namespace OmniNotesCore
             blob.Metadata.Add(NotesKey, noteTitle);
             blob.Metadata.Add(SectionKey, defaultSectionTitle);
             blob.Metadata.Add(PageTitleKey, defaultPageTitle);
-            await blob.UploadTextAsync(content, AccessCondition.GenerateIfNotExistsCondition(), new BlobRequestOptions() { },
+            await blob.UploadTextAsync(content, Encoding.UTF8, AccessCondition.GenerateIfNotExistsCondition(), new BlobRequestOptions() { },
                 new OperationContext());
             return new BlobDto()
             {
                 NotesTitle = noteTitle,
                 SectionTitle = defaultSectionTitle,
-                PageTitle = "DefaultPageTitle",
+                PageTitle = defaultPageTitle,
                 LastModifiedUtc = blob.Properties.LastModified,
                 PageLocation = blob.Name,
                 Url = blob.Uri,
@@ -101,9 +101,24 @@ namespace OmniNotesCore
             };
         }
 
-        public async Task<BlobDto> UpdateNote(string userId, string blobLocation, string content)
+        public async Task<BlobDto> UpdateNote(string userId, string blobLocation, string content, string pagetitle, string sectionTitle, string noteTitle)
         {
-            throw new NotImplementedException();
+            var blob = _cloudBlobContainer.GetBlockBlobReference($"{blobLocation}");
+            blob.Metadata.Add(NotesKey, noteTitle);
+            blob.Metadata.Add(SectionKey, sectionTitle);
+            blob.Metadata.Add(PageTitleKey, pagetitle);
+            await blob.UploadTextAsync(content, Encoding.UTF8, AccessCondition.GenerateEmptyCondition(),
+                new BlobRequestOptions() { }, new OperationContext());
+            return new BlobDto()
+            {
+                NotesTitle = blob.Metadata[NotesKey],
+                SectionTitle = blob.Metadata[SectionKey],
+                PageTitle = blob.Metadata[PageTitleKey],
+                LastModifiedUtc = blob.Properties.LastModified,
+                PageLocation = blob.Name,
+                Url = blob.Uri,
+                Etag = blob.Properties.ETag
+            };
         }
 
         private async Task<IEnumerable<BlobDto>> GetAllNotesOrFullNotes(string userId, string noteTitle = "")

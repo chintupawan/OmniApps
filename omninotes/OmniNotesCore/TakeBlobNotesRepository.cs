@@ -18,9 +18,8 @@ namespace OmniNotesCore
         }
         public async Task<Note> CreateNewNote(string userId, string noteTitle)
         {
-            var utc = DateTime.Now.ToString("O");
-            string untitleSection = $"Untitled Section-{utc}";
-            string untitlePage = $"Untitled Page-{utc}";
+            string untitleSection = $"Untitled Section-{noteTitle}";
+            string untitlePage = $"Untitled Page-{noteTitle}";
 
             var dto = await Storage.CreateNewNote(userId, noteTitle, untitleSection, untitlePage, "");
             var note = new Note() { Title = noteTitle };
@@ -38,9 +37,20 @@ namespace OmniNotesCore
             return note;
         }
 
-        public Page CreatePage(string userId, string noteTitle, string sectionTitle, Page page)
+        public async Task<Page> CreatePage(string userId, Page page)
         {
-            throw new NotImplementedException();
+            var dto = await Storage.UpdateNote(userId, page.RelativeLocation, page.Body, page.Title, page.SectionTitle, page.NoteTitle);
+            var updatedPage = new Page()
+            {
+                Title = dto.PageTitle,
+                SectionTitle = dto.SectionTitle,
+                RelativeLocation = dto.PageLocation,
+                NoteTitle = dto.PageTitle,
+                LastModifiedDateTime = dto.LastModifiedUtc?.UtcDateTime ?? DateTime.UtcNow,
+                SelfUrl = dto.PageLocation,
+                Body = dto.Content,
+            };
+            return updatedPage;
         }
 
         public Section CreateSection(string userId, string noteTitle, string sectionTitle)

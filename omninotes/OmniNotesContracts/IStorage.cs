@@ -12,7 +12,7 @@ namespace OmniNotesContracts
 
         Task<BlobDto> CreateNewNote(string userId, string noteTitle, string sectionTitle, string pageTitle,
             string content);
-        Task<BlobDto> UpdateNote(string userId, string blobLocation, string content);
+        Task<BlobDto> UpdateNote(string userId, string blobLocation, string content, string pagetitle, string sectionTitle, string noteTitle);
     }
 
    
