@@ -9,7 +9,7 @@ namespace OmniNotes_IntegrationTests
     public class AzureBlobStorageIntegrationTests
     {
         private string str =
-            "DefaultEndpointsProtocol=https;AccountName=omninotes;AccountKey=OELJ2YrYhD/0CFaGE5E73CjHSH1VyfSvVXQ9f4tV1jGyr2XFQHOzCLCgWAx7k3k0AgdO9/wBvA96suGkjy5uNg==";
+            "";
         [TestMethod]
         public void GetAllNotesTest()
         {
