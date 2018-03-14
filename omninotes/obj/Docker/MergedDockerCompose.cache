@@ -1,0 +1,15 @@
+networks:
+  default:
+    external:
+      name: nat
+services:
+  omninotesapi:
+    build:
+      context: D:\@SideProj\OmniApps\omninotes
+      dockerfile: OmniNotesApi\Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+    image: omninotesapi
+    ports:
+    - 80/tcp
+version: '3.0'
