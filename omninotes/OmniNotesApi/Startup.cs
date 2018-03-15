@@ -8,6 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using OmniNotesContracts;
+using OmniNotesCore;
 
 namespace omninotes
 {
@@ -28,6 +30,9 @@ namespace omninotes
             {
                 options.ForwardClientCertificate = false;
             });
+            services.AddScoped<ITakeNotesRepository, TakeBlobNotesRepository>();
+            services.AddScoped<IReadNotesRepository, ReadBlobNotesRepository>();
+            services.Configure<OmniNotesSettings>(Configuration.GetSection("OmniNotesSettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

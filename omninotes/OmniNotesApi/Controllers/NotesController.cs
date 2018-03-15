@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using OmniNotesContracts;
+using OmniNotesCore;
 using OmniNotesModels.Models;
 
 namespace OmniNotesApi.Controllers
@@ -13,6 +15,7 @@ namespace OmniNotesApi.Controllers
     [Route("api/ReadNotes")]
     public class ReadNotesController : Controller
     {
+        private readonly IOptions<OmniNotesSettings> _settings;
         private readonly IReadNotesRepository _notesRepository;
         private readonly ITakeNotesRepository _takeNotesRepository;
         public ReadNotesController(IReadNotesRepository notesRepository, ITakeNotesRepository takeNotesRepository)

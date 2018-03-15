@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using OmniNotesContracts;
@@ -11,7 +12,10 @@ using OmniNotesModels.DTO;
 
 namespace OmniNotesCore
 {
-
+    public class OmniNotesSettings
+    {
+        public string StorageConnectionString { get; set; }
+    }
 
     public class AzureBlobStorage : IStorage
     {
@@ -23,10 +27,20 @@ namespace OmniNotesCore
         private const string NotesKey = "NotesTitle";
         private const string SectionKey = "SectionTitle";
         private const string PageTitleKey = "PageTitle";
-
+       
         public AzureBlobStorage(string connectionString)
         {
             if (CloudStorageAccount.TryParse(connectionString, out _storageAccount))
+            {
+                _cloudBlobClient = _storageAccount.CreateCloudBlobClient();
+                _cloudBlobContainer = _cloudBlobClient.GetContainerReference(Container);
+
+            }
+        }
+
+        public AzureBlobStorage(IOptions<OmniNotesSettings> settings)
+        {
+            if (CloudStorageAccount.TryParse(settings.Value.StorageConnectionString, out _storageAccount))
             {
                 _cloudBlobClient = _storageAccount.CreateCloudBlobClient();
                 _cloudBlobContainer = _cloudBlobClient.GetContainerReference(Container);
