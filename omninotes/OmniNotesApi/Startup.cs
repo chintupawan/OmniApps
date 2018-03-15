@@ -30,6 +30,7 @@ namespace omninotes
             {
                 options.ForwardClientCertificate = false;
             });
+            services.AddScoped<IStorage, AzureBlobStorage>();
             services.AddScoped<ITakeNotesRepository, TakeBlobNotesRepository>();
             services.AddScoped<IReadNotesRepository, ReadBlobNotesRepository>();
             services.Configure<OmniNotesSettings>(Configuration.GetSection("OmniNotesSettings"));

@@ -18,10 +18,11 @@ namespace OmniNotesApi.Controllers
         private readonly IOptions<OmniNotesSettings> _settings;
         private readonly IReadNotesRepository _notesRepository;
         private readonly ITakeNotesRepository _takeNotesRepository;
-        public ReadNotesController(IReadNotesRepository notesRepository, ITakeNotesRepository takeNotesRepository)
+        public ReadNotesController(IReadNotesRepository notesRepository, ITakeNotesRepository takeNotesRepository, IOptions<OmniNotesSettings> settings)
         {
             _notesRepository = notesRepository;
             _takeNotesRepository = takeNotesRepository;
+            _settings = settings;
         }
         // GET: api/Notes
         [HttpGet]

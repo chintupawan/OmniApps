@@ -4,3 +4,4 @@ D:\@SideProj\OmniApps\omninotes\OmniNotesModels\bin\Debug\netcoreapp2.0\OmniNote
 D:\@SideProj\OmniApps\omninotes\OmniNotesModels\obj\Debug\netcoreapp2.0\OmniNotesModels.csproj.CoreCompileInputs.cache
 D:\@SideProj\OmniApps\omninotes\OmniNotesModels\obj\Debug\netcoreapp2.0\OmniNotesModels.dll
 D:\@SideProj\OmniApps\omninotes\OmniNotesModels\obj\Debug\netcoreapp2.0\OmniNotesModels.pdb
+D:\@SideProj\OmniApps\omninotes\OmniNotesModels\obj\Debug\netcoreapp2.0\OmniNotesModels.csprojResolveAssemblyReference.cache
