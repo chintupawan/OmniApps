@@ -4,10 +4,10 @@
 
 /omninotes/.vs
 /.vs/OmniApps/v15
-/omninotes/OmniNotesApi/bin
-/omninotes/OmniNotesContracts/bin
-/omninotes/OmniNotesCore/bin
-/omninotes/OmniNotes-IntegrationTests/bin
-/omninotes/OmniNotesModels/bin
-/omninotes/OmniNotes-UnitsTests/bin
-/omninotes/OmniNotesWebApp/bin
+/omninotes/OmniNotesApi/bin/*
+/omninotes/OmniNotesContracts/bin/*
+/omninotes/OmniNotesCore/bin/*
+/omninotes/OmniNotes-IntegrationTests/bin/*
+/omninotes/OmniNotesModels/bin/*
+/omninotes/OmniNotes-UnitsTests/bin/*
+/omninotes/OmniNotesWebApp/bin/*
