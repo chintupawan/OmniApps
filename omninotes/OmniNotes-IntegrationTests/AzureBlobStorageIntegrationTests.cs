@@ -8,13 +8,13 @@ namespace OmniNotes_IntegrationTests
     [TestClass]
     public class AzureBlobStorageIntegrationTests
     {
-        private string str =
-            "";
+        private string str = "UseDevelopmentStorage=true";
+        private string userId = "pavan";
         [TestMethod]
         public void GetAllNotesTest()
         {
             AzureBlobStorage abs = new AzureBlobStorage(str);
-            var notes = abs.GetAllNotesWithOutContent("pavan");
+            var notes = abs.GetAllNotesWithOutContent(userId);
             var count = notes.Result.Count();
         }
 
@@ -22,7 +22,7 @@ namespace OmniNotes_IntegrationTests
         public void DownloadNotesTest()
         {
             AzureBlobStorage abs = new AzureBlobStorage(str);
-            var notesString = abs.DownloadNotes("pavan", "pavan/Sec1/Page2.txt");
+            var notesString = abs.DownloadNotes(userId, "pavan/Sec1/Page2.txt");
             var result = notesString.Result;
         }
     }

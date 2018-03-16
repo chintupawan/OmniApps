@@ -10,16 +10,15 @@ namespace OmniNotes_IntegrationTests
     [TestClass]
     public class TakeNotesRepositoryTests
     {
-        private string str =
-            "";
-
+        private string str = "UseDevelopmentStorage=true";
+        private string userId = "pavan";
         [TestMethod]
         public void CreateNoteTests()
         {
             var noteTitle = DateTime.UtcNow.ToString("MMddyyyyyhhmmsstt");
             AzureBlobStorage abs = new AzureBlobStorage(str);
             TakeBlobNotesRepository takeNotes = new TakeBlobNotesRepository(abs);
-            var note = takeNotes.CreateNewNote("pavan", noteTitle).Result;
+            var note = takeNotes.CreateNewNote(userId, noteTitle).Result;
 
             Assert.IsTrue(note.Title == noteTitle);
             Assert.IsTrue(note.Sections.Count == 1);
