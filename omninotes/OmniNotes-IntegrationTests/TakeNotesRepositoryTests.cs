@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OmniNotes.IntegrationTests;
 using OmniNotesCore;
 
 namespace OmniNotes_IntegrationTests
 {
     [TestClass]
-    public class TakeNotesRepositoryTests
+    public class TakeNotesRepositoryTests:TestBase
     {
-        private string str = "UseDevelopmentStorage=true";
-        private string userId = "pavan";
         [TestMethod]
         public void CreateNoteTests()
         {
             var noteTitle = DateTime.UtcNow.ToString("MMddyyyyyhhmmsstt");
-            AzureBlobStorage abs = new AzureBlobStorage(str);
+            AzureBlobStorage abs = new AzureBlobStorage(ConnectinStrings);
             TakeBlobNotesRepository takeNotes = new TakeBlobNotesRepository(abs);
-            var note = takeNotes.CreateNewNote(userId, noteTitle).Result;
+            var note = takeNotes.CreateNewNote(UserId, noteTitle).Result;
 
             Assert.IsTrue(note.Title == noteTitle);
             Assert.IsTrue(note.Sections.Count == 1);
