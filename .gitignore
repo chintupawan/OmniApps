@@ -4,18 +4,11 @@
 
 /omninotes/.vs
 /.vs/OmniApps/v15
-/omninotes/OmniNotesApi/bin*
-/omninotes/OmniNotesContracts/bin*
-/omninotes/OmniNotesCore/bin/*
-/omninotes/OmniNotes-IntegrationTests/bin/*
-/omninotes/OmniNotesModels/bin/*
-/omninotes/OmniNotes-UnitsTests/bin/*
-/omninotes/OmniNotesWebApp/bin/*
-/OmniNotesApi/bin*
-/OmniNotesContracts/bin/*
-/OmniNotesCore/bin/*
-/OmniNotes-IntegrationTests/bin/*
-/OmniNotesModels/bin/*
-/OmniNotes-UnitsTests/bin/*
-/OmniNotesWebApp/bin/*
+/omninotes/OmniNotesApi/bin
+/omninotes/OmniNotesContracts/bin
+/omninotes/OmniNotesCore/bin/
+/omninotes/OmniNotes-IntegrationTests/bin/
+/omninotes/OmniNotesModels/bin/
+/omninotes/OmniNotes-UnitsTests/bin/
+/omninotes/OmniNotesWebApp/bin/
 /omninotes/OmniNotesWebApp/node_modules
