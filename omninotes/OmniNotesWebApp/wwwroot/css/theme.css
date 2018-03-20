@@ -1,0 +1,24 @@
+.omni-body{
+    background-color: #dee2e6
+}
+.omni-theme-yellow{
+background-color: #ffe906;
+}
+
+.omni-bottom-border{
+    border-bottom: #4950571f;
+    border-bottom-style: inset;
+    border-bottom-width: thin
+}
+.omni-page{
+    background-color: whitesmoke;
+    height: 100%;
+}
+.omni-book-position-abs{
+    position: absolute;
+    margin-left: 5px;
+    margin-top:5px
+}
+.omni-icon{
+    height: 32px;;
+}
