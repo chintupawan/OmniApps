@@ -5,6 +5,7 @@
 .omni-body a{
     color: black;
 }
+
 .omni-theme-yellow{
 background-color: #ffe906;
 }
@@ -42,7 +43,12 @@ background-color: #ffe906;
 .omni-margin-top10{
     margin-top:10px;
 }
+.list-group-item a:hover, .list-group-item i:hover{
+    color: cornsilk !important;
+    transition: 0.3s;
+}
 .list-group-item:hover{
-    color: black !important;
+    color: cornsilk !important;
     background-color: #ffe906;
+    transition: 0.3s;
 }
