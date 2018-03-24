@@ -6,6 +6,11 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'wwwroot/js')
     },
+    resolve: {
+        // Add '.ts' and '.tsx' as resolvable extensions.
+        extensions: [".ts", ".tsx", ".js", ".json"]
+    },
+    devtool: "eval-source-map",
     module: {
         rules: [{
                 test: /\.tsx$/,

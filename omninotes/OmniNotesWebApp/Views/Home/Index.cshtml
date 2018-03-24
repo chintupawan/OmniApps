@@ -3,45 +3,6 @@
     ViewData["Title"] = "Omni Notes";
     Layout = "_Layout";
 }
-
-<div class="row omni-margin-top10">
-    <div class="col-sm-2">
-        <div class="border">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item omni-transparent-back omni-center">
-                    <i class="omni-icon" data-feather="plus-circle"></i>
-                </li>
-                <li class="list-group-item">
-                    <a href="#"><span><i class="omni-icon" data-feather="book"></i></span><span class="omni-book-position-abs">Book 1</span></a>
-                </li>
-                <li class="list-group-item">
-                    <a href="#"><span><i class="omni-icon" data-feather="book"></i></span><span class="omni-book-position-abs">Book 2</span></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-sm-8 border">
-        <div class="omni-page">
-            <div class="clearfix">
-               <div class="float-left"><input type="text" value="Page Title" /></div>
-               <div class="float-right">@DateTime.UtcNow.ToString("dd MMMM yyyy")</div>
-            </div>
-            <hr/>
-            <textarea></textarea>
-        </div>
-    </div>
-    <div class="col-sm-2">
-        <ul class="list-group list-group-flush border">
-            <li class="list-group-item omni-transparent-back omni-center">
-                <i class="omni-icon" data-feather="plus-circle"></i>
-            </li>
-            <li class="list-group-item">
-                <a href="#"><span><i class="omni-icon" data-feather="file"></i></span><span class="omni-book-position-abs">Page 1</span></a>
-            </li>
-            <li class="list-group-item">
-                <a href="#"><span><i class="omni-icon" data-feather="file"></i></span><span class="omni-book-position-abs">Page 2</span></a>
-            </li>
-        </ul>
-    </div>
+<div id="rootApp">
 </div>
 
