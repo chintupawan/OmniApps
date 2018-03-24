@@ -5,7 +5,7 @@ import Editor from '../components/editor';
 import Pagebar from '../components/pagebar';
 
 type MainProps = {};
-type MainState = { showSidebar: boolean };
+type MainState = { showSidebar: boolean, books:Array<string> };
 
 class MainContainer extends React.Component<MainProps, MainState> {
 
@@ -14,7 +14,8 @@ class MainContainer extends React.Component<MainProps, MainState> {
         this.toggleSidebar = this.toggleSidebar.bind(this);
 
         this.state = {
-            showSidebar: false
+            showSidebar: false,
+            books:["Book 1", "Book 2", "Book 3"]
         }
     }
 
@@ -31,7 +32,7 @@ class MainContainer extends React.Component<MainProps, MainState> {
         return (
             <div>
                 <div style={showSidebar ? sidebarWidth : {}} className="omni-sidebar">
-                    <Sidebar />
+                    <Sidebar books={this.state.books}/>
                 </div>
                 <div className={showSidebar ? "omni-workspace-shift" :"omni-workspace"}>
                     <header>
