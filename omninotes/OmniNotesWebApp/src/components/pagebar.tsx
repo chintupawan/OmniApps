@@ -1,19 +1,16 @@
 import * as React from 'react';
-type PageState = { pages: Array<string> }
+import { PageProps } from '../types/types';
 
-export default class Pagebar extends React.Component<any, PageState> {
+export default class Pagebar extends React.Component<PageProps, any> {
     constructor(props: any) {
         super(props);
-        this.state = {
-            pages: ["Page 1", "Page 2"],
-        }
     }
     public render() {
-        const { pages } = this.state;
-        const pagesLi = pages.map(p => {
-            return (<li className="list-group-item">
+        const { pages } = this.props;
+        const pagesLi = pages.map((p, i) => {
+            return (<li key={i} className="list-group-item">
                 <a href="#"><span><i className="omni-icon" data-feather="file"></i></span>
-                    <span className="omni-book-position-abs">{p}</span>
+                    <span className="omni-book-position-abs">{p.title}</span>
                 </a>
             </li>);
         })

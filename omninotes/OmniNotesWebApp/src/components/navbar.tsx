@@ -1,10 +1,9 @@
 import * as React from 'react';
+import {NavbarProps, NavbarState} from '../types/types';
 
-type NavbarProps = { handleMenuClick: any  };
-type NavbarState = {  };
-class Navbar extends React.Component<NavbarProps, NavbarState> {
+class Navbar extends React.Component<NavbarProps, any> {
     // tslint:disable-next-line:no-any
-    constructor(props: any) {
+    constructor(props: NavbarProps) {
         super(props);
         this.handleMenuClick = this.handleMenuClick.bind(this);
     }
