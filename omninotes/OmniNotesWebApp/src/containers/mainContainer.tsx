@@ -4,9 +4,8 @@ import Navbar from '../components/navbar';
 import Sidebar from '../components/sidebar';
 import Editor from '../components/editor';
 import Pagebar from '../components/pagebar';
-import {MainProps} from '../types/types';
-import { changePageTitle } from '../actions/actions';
-import { bindActionCreators } from 'redux';
+import {MainProps, Book} from '../types/types';
+import { changePageTitle, fetchMyBooks } from '../actions/actions';
 
 class MainContainer extends React.Component<MainProps, any> {
 
@@ -24,9 +23,17 @@ class MainContainer extends React.Component<MainProps, any> {
         }
     }
 
+    public componentWillMount(){
+       this.props.fetchMyBooks();
+    }
+
+    public componentWillReceiveProps(nextProps: any){
+        debugger;
+    }
+
     private toggleSidebar() {
         const { showSidebar } = this.state;
-        this.setState({ showSidebar: !showSidebar })
+        this.setState({ showSidebar: !showSidebar });
     }
     private onbookSelect(bookIndex:number): void{
         this.setState({selectedBookIndex: bookIndex, selectedPageIndex: 0});
@@ -36,7 +43,7 @@ class MainContainer extends React.Component<MainProps, any> {
     }
     private onpageTitleChange(title: string): void {
         const{selectedBookIndex, selectedPageIndex} = this.state;
-        this.props.changePageTitle(selectedBookIndex, selectedPageIndex, title);
+        this.props.changePageTitle(selectedBookIndex, selectedPageIndex, title, this.props.myBooks);
     }
 
     public render() {
@@ -77,7 +84,10 @@ function mapStateToProps(state: any) {
         myBooks: state.myBooks,
     };
 }
-function mapDispatchToProps(dispatch:any){
-    return bindActionCreators({changePageTitle}, dispatch);
-}
-export default connect(mapStateToProps, mapDispatchToProps)(MainContainer);
+// function mapDispatchToProps(dispatch:any){
+//     return {
+//         fetchBooks: () => dispatch(fetchMyBooks()),
+//         changePageTitle : (bookIndex:number, pageIndex:number, pageTitle: string, books: Array<Book>) => dispatch(changePageTitle(bookIndex, pageIndex, pageTitle, books))
+//     }
+// }
+export default connect(mapStateToProps, {fetchMyBooks, changePageTitle})(MainContainer);

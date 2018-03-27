@@ -8,7 +8,10 @@ export type NavbarState = {  };
 
 export type SidebarProps = { books: Array<Book>, onbookSelect: (index: number) => void }
 
-export type MainProps = { myBooks: Array<Book>, changePageTitle:(bookIndex: number, pageIndex:number, pageTitle: string) => void};
+export type MainProps = { myBooks: Array<Book>, 
+                          changePageTitle:(bookIndex: number, pageIndex:number, pageTitle: string, books:Array<Book>) => void,
+                          fetchMyBooks: () => void
+                        };
 export type MainState = { showSidebar: boolean };
 
 export type Page = { title: string, body: string, selfUrl: string, noteTitle: string, sectionTitle: string, relativeLocation: string}
