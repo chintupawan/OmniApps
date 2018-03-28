@@ -8,7 +8,7 @@ export type NavbarState = {  };
 
 export type SidebarProps = { books: Array<Book>, onbookSelect: (index: number) => void }
 
-export type MainProps = { myBooks: Array<Book>, 
+export type MainProps = { myBooks: Array<Book>, showLoading: Boolean
                           changePageTitle:(bookIndex: number, pageIndex:number, pageTitle: string, books:Array<Book>) => void,
                           fetchMyBooks: () => void
                         };
@@ -20,3 +20,4 @@ export type Book = {title: string, sections: Array<Section> }
 
 export const FETCH_MYBOOKS = "FETCH_MYBOOKS";
 export const SET_PAGETITLE = "SET_PAGETITLE";
+export const SHOW_LOADING ="SHOW_LOADING";

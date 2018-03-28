@@ -11,6 +11,9 @@ export default class Sidebar extends React.Component<SidebarProps, any> {
     }
     public render() {
         const { books } = this.props;
+        if(!books){
+            return(<div></div>);
+        }
         const booksLi = books.map((b, i) => {
             return (<li key={i} className="list-group-item">
                          <a  href="#" onClick={() => this.selectBook(i)}><span><i className="omni-icon" data-feather="book"></i></span>

@@ -19,7 +19,9 @@ class MainContainer extends React.Component<MainProps, any> {
         this.state = {
             showSidebar: false,
             selectedBookIndex: 0,
-            selectedPageIndex: 0
+            selectedPageIndex: 0,
+            books:[],
+            loading:true
         }
     }
 
@@ -28,7 +30,7 @@ class MainContainer extends React.Component<MainProps, any> {
     }
 
     public componentWillReceiveProps(nextProps: any){
-        debugger;
+       this.setState({books: nextProps.myBooks, loading: nextProps.showLoading})
     }
 
     private toggleSidebar() {
@@ -47,17 +49,22 @@ class MainContainer extends React.Component<MainProps, any> {
     }
 
     public render() {
-        const{ myBooks } = this.props;
-        const { showSidebar, selectedBookIndex, selectedPageIndex } = this.state
+        //const{ myBooks, showLoading } = this.props;
+        const { showSidebar, selectedBookIndex, selectedPageIndex, books, loading } = this.state;
         const sidebarWidth = {
             width:250+'px'
+        };
+        if(loading){
+            return(
+                <div>loading...</div>
+            );
         }
-        const selectedPage = myBooks[selectedBookIndex].sections[0].pages[selectedPageIndex];
-        const pagesOfSelectedBook = myBooks[selectedBookIndex].sections[0].pages;
+        const selectedPage = books[selectedBookIndex].sections[0].pages[selectedPageIndex];
+        const pagesOfSelectedBook = books[selectedBookIndex].sections[0].pages;
         return (
             <div>
                 <div style={showSidebar ? sidebarWidth : {}} className="omni-sidebar">
-                    <Sidebar books={myBooks} onbookSelect={this.onbookSelect}/>
+                    <Sidebar books={books} onbookSelect={this.onbookSelect}/>
                 </div>
                 <div className={showSidebar ? "omni-workspace-shift" :"omni-workspace"}>
                     <header>
@@ -82,12 +89,8 @@ class MainContainer extends React.Component<MainProps, any> {
 function mapStateToProps(state: any) {
     return {
         myBooks: state.myBooks,
+        showLoading:state.showLoading
     };
 }
-// function mapDispatchToProps(dispatch:any){
-//     return {
-//         fetchBooks: () => dispatch(fetchMyBooks()),
-//         changePageTitle : (bookIndex:number, pageIndex:number, pageTitle: string, books: Array<Book>) => dispatch(changePageTitle(bookIndex, pageIndex, pageTitle, books))
-//     }
-// }
+
 export default connect(mapStateToProps, {fetchMyBooks, changePageTitle})(MainContainer);
