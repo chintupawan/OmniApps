@@ -1,6 +1,7 @@
 .omni-body{
     background-color: #dee2e6;
     color:black;
+    overflow-y: hidden;
 }
 .omni-body a{
     color: black;
@@ -23,6 +24,7 @@ background-color: #ffe906;
 }
 .omni-page, textarea{
     width: 100%; margin-top: 0px; margin-bottom: 0px;
+    min-height: 75em;
 }
 .omni-page, input{
     border:none;

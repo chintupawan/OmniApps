@@ -9,7 +9,7 @@ export default class Pagebar extends React.Component<PageProps, any> {
         const { pages } = this.props;
         const pagesLi = pages.map((p, i) => {
             return (<li key={i} className="list-group-item">
-                <a href="#"><span><i className="omni-icon" data-feather="file"></i></span>
+                <a href="#"><span><i className="omni-icon" data-feather="file" /></span>
                     <span className="omni-book-position-abs">{p.title}</span>
                 </a>
             </li>);

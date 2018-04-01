@@ -1,11 +1,11 @@
-import * as React from 'react';
+import * as React from "react";
 import { connect } from "react-redux";
-import Navbar from '../components/navbar';
-import Sidebar from '../components/sidebar';
-import Editor from '../components/editor';
-import Pagebar from '../components/pagebar';
-import {MainProps, Book} from '../types/types';
-import { changePageTitle, fetchMyBooks } from '../actions/actions';
+import Navbar from "../components/navbar";
+import Sidebar from "../components/sidebar";
+import Editor from "../components/editor";
+import Pagebar from "../components/pagebar";
+import { MainProps, Book } from "../types/types";
+import { changePageTitle, fetchMyBooks } from "../actions/actions";
 
 class MainContainer extends React.Component<MainProps, any> {
 
@@ -20,45 +20,31 @@ class MainContainer extends React.Component<MainProps, any> {
             showSidebar: false,
             selectedBookIndex: 0,
             selectedPageIndex: 0,
-            books:[],
-            loading:true
-        }
+            books: [],
+            loading: true
+        };
     }
 
-    public componentWillMount(){
+    public componentWillMount() {
        this.props.fetchMyBooks();
     }
 
-    public componentWillReceiveProps(nextProps: any){
-       this.setState({books: nextProps.myBooks, loading: nextProps.showLoading})
+    public componentWillReceiveProps(nextProps: any) {
+       this.setState({books: nextProps.myBooks, loading: nextProps.showLoading});
     }
-
-    private toggleSidebar() {
-        const { showSidebar } = this.state;
-        this.setState({ showSidebar: !showSidebar });
-    }
-    private onbookSelect(bookIndex:number): void{
-        this.setState({selectedBookIndex: bookIndex, selectedPageIndex: 0});
-    }
-    private onpageSelect(pageIndex:number):void{
-        this.setState({selectedPageIndex: pageIndex});
-    }
-    private onpageTitleChange(title: string): void {
-        const{selectedBookIndex, selectedPageIndex} = this.state;
-        this.props.changePageTitle(selectedBookIndex, selectedPageIndex, title, this.props.myBooks);
-    }
-
     public render() {
-        //const{ myBooks, showLoading } = this.props;
-        const { showSidebar, selectedBookIndex, selectedPageIndex, books, loading } = this.state;
+        // const{ myBooks, showLoading } = this.props;
+        const { showSidebar, selectedBookIndex, selectedPageIndex, loading } = this.state;
+        const books = this.state.myBooks;
         const sidebarWidth = {
-            width:250+'px'
+            width: 250 + "px"
         };
-        if(loading){
+        if (loading || !books || books.length === 0 || books[selectedBookIndex]) {
             return(
                 <div>loading...</div>
             );
         }
+       
         const selectedPage = books[selectedBookIndex].sections[0].pages[selectedPageIndex];
         const pagesOfSelectedBook = books[selectedBookIndex].sections[0].pages;
         return (
@@ -66,7 +52,7 @@ class MainContainer extends React.Component<MainProps, any> {
                 <div style={showSidebar ? sidebarWidth : {}} className="omni-sidebar">
                     <Sidebar books={books} onbookSelect={this.onbookSelect}/>
                 </div>
-                <div className={showSidebar ? "omni-workspace-shift" :"omni-workspace"}>
+                <div className={showSidebar ? "omni-workspace-shift" : "omni-workspace"}>
                     <header>
                         <Navbar handleMenuClick={this.toggleSidebar} />
                     </header>
@@ -85,11 +71,26 @@ class MainContainer extends React.Component<MainProps, any> {
             </div>
         );
     }
+
+    private toggleSidebar() {
+        const { showSidebar } = this.state;
+        this.setState({ showSidebar: !showSidebar });
+    }
+    private onbookSelect(bookIndex: number): void {
+        this.setState({selectedBookIndex: bookIndex, selectedPageIndex: 0});
+    }
+    private onpageSelect(pageIndex: number): void {
+        this.setState({selectedPageIndex: pageIndex});
+    }
+    private onpageTitleChange(title: string): void {
+        const{selectedBookIndex, selectedPageIndex} = this.state;
+        this.props.changePageTitle(selectedBookIndex, selectedPageIndex, title, this.props.myBooks);
+    }
 }
 function mapStateToProps(state: any) {
     return {
         myBooks: state.myBooks,
-        showLoading:state.showLoading
+        showLoading: state.showLoading
     };
 }
 
