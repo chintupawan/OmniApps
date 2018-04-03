@@ -35,11 +35,11 @@ class MainContainer extends React.Component<MainProps, any> {
     public render() {
         // const{ myBooks, showLoading } = this.props;
         const { showSidebar, selectedBookIndex, selectedPageIndex, loading } = this.state;
-        const books = this.state.myBooks;
+        const books = this.state.books.myBooks;
         const sidebarWidth = {
             width: 250 + "px"
         };
-        if (loading || !books || books.length === 0 || books[selectedBookIndex]) {
+        if (loading || !books || books.length === 0 || !books[selectedBookIndex]) {
             return(
                 <div>loading...</div>
             );

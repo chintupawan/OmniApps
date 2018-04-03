@@ -20,7 +20,7 @@ export default class Editor extends React.Component<EditorProps, any> {
                 <div className="float-right">22/02/2018</div>
             </div>
             <hr />
-            <textarea>{page.body}</textarea>
+            <textarea defaultValue={page.body} />
         </div>
         );
     }

@@ -1,6 +1,6 @@
 import * as React from "react";
-export const newItem = (type: string) => {
-    let labelText = type === "newBook" ? "New Book Title" : "New Page Title";
+const NewItem = (newItemType: string) => {
+    let labelText = newItemType === "newBook" ? "New Book Title" : "New Page Title";
     return (
         <div className="container-fluid">
             <form>
@@ -15,3 +15,5 @@ export const newItem = (type: string) => {
         </div>
     );
 };
+
+export default NewItem;
