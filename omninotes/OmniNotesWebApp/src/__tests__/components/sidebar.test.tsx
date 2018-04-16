@@ -75,9 +75,12 @@ describe("<Sidebar />", () => {
 
     it("Sidebar bookSelected mock", () => {
         const onselectMock = jest.fn();
-        const sideBarShallow = Enzyme.shallow(<Sidebar books={books} onbookSelect={onselectMock}/>);
+        const sideBarShallow = Enzyme.mount(<Sidebar books={books} onbookSelect={onselectMock}/>);
+        sideBarShallow.setProps({books});
         const lastAnchor = sideBarShallow.find("a").last();
         expect(lastAnchor).toBeDefined();
+        // tslint:disable-next-line:no-console
+        console.log(sideBarShallow.html());
         lastAnchor.simulate("click");
         expect(onselectMock).toBeCalledWith(1);
 
