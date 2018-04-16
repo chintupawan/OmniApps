@@ -17,8 +17,4 @@ describe("MainContainer", () => {
     });
 
     const shallowRenderer = ShallowRenderer.createRenderer();
-    shallowRenderer.render(<MainContainer store={store} />);
-    const result = shallowRenderer.getRenderOutput();
-    // tslint:disable-next-line:no-console
-    console.log(result);
 });

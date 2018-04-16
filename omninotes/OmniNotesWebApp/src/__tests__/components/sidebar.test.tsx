@@ -1,8 +1,12 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
 import * as ShallowRenderer from "react-test-renderer/shallow";
+import * as Enzyme from "enzyme";
+import * as Adapter from "enzyme-adapter-react-16";
 import Sidebar from "../../components/sidebar";
 import { Page } from "../../types/types";
+
+Enzyme.configure({ adapter: new Adapter() });
 
 describe("<Sidebar />", () => {
     const books = [{
@@ -67,5 +71,15 @@ describe("<Sidebar />", () => {
         let tree = sidebar.toTree();
         tree.props.onbookSelect(0);
         tree.props.onbookSelect(1);
+    });
+
+    it("Sidebar bookSelected mock", () => {
+        const onselectMock = jest.fn();
+        const sideBarShallow = Enzyme.shallow(<Sidebar books={books} onbookSelect={onselectMock}/>);
+        const lastAnchor = sideBarShallow.find("a").last();
+        expect(lastAnchor).toBeDefined();
+        lastAnchor.simulate("click");
+        expect(onselectMock).toBeCalledWith(1);
+
     });
 });

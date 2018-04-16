@@ -1,15 +1,25 @@
 import * as React from "react";
-import { SidebarProps } from "../types/types";
+import { SidebarProps, SidebarState } from "../types/types";
 import NewItem from "./reusables/newItem";
 
-export default class Sidebar extends React.Component<SidebarProps, any> {
+export default class Sidebar extends React.Component<SidebarProps, SidebarState> {
     constructor(props: SidebarProps) {
         super(props);
+        this.state = {
+            books: [],
+            editMode: false
+        };
         this.selectBook = this.selectBook.bind(this);
     }
 
+    public componentWillReceiveProps(nextProps: SidebarProps) {
+        if (this.props !== nextProps) {
+            this.setState({ books: nextProps.books });
+        }
+    }
+
     public render() {
-        const { books } = this.props;
+        const { books } = this.state;
         if (!books) {
             return (<div />);
         }
@@ -27,8 +37,7 @@ export default class Sidebar extends React.Component<SidebarProps, any> {
             <div>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item omni-transparent-back omni-center">
-                        // tslint:disable-next-line:max-line-length
-                        <a href="#" data-toggle="modal" data-target="#exampleModal">
+                        <a href="#" >
                             <i className="omni-icon" data-feather="plus-circle" />
                         </a>
                     </li>
@@ -42,9 +51,36 @@ export default class Sidebar extends React.Component<SidebarProps, any> {
         this.props.onbookSelect(index);
     }
 
+    private renderNewBook() {
+        const newBook = {
+            "title": "Untitled",
+            "sections": [
+                {
+                    "title": "UntitledSection",
+                    "pages": [
+                        {
+                            "createDateTime": "",
+                            "lastModifiedDateTime": "",
+                            "title": "Untitled Page",
+                            "body": "",
+                            "selfUrl": "",
+                            "noteTitle": "Untitled",
+                            "sectionTitle": "UntitledSection",
+                            "relativeLocation": ""
+                        }
+                    ],
+                    "selfUrl": ""
+                }
+            ],
+            "selfUrl": ""
+        };
+        const { books } = this.state;
+        books.push(newBook);
+        this.setState({ books: books, editMode: true});
+    }
+
     private renderModal() {
         return (
-            // tslint:disable-next-line:max-line-length
             <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
@@ -55,7 +91,7 @@ export default class Sidebar extends React.Component<SidebarProps, any> {
                             </button>
                         </div>
                         <div className="modal-body">
-                            ...
+                            <input type="text" name="newBook" />
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
