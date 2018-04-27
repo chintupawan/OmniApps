@@ -20,6 +20,7 @@ export default class Sidebar extends React.Component<SidebarProps, SidebarState>
 
     public render() {
         const { books } = this.state;
+        const {onaddNewBook} = this.props;
         if (!books) {
             return (<div />);
         }
@@ -37,13 +38,12 @@ export default class Sidebar extends React.Component<SidebarProps, SidebarState>
             <div>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item omni-transparent-back omni-center">
-                        <a href="#" >
+                        <a href="#" onClick={() => onaddNewBook()} >
                             <i className="omni-icon" data-feather="plus-circle" />
                         </a>
                     </li>
                     {booksLi}
                 </ul>
-                {this.renderModal()}
             </div>
         );
     }
@@ -51,37 +51,9 @@ export default class Sidebar extends React.Component<SidebarProps, SidebarState>
         this.props.onbookSelect(index);
     }
 
-    private renderNewBook() {
-        const newBook = {
-            "title": "Untitled",
-            "sections": [
-                {
-                    "title": "UntitledSection",
-                    "pages": [
-                        {
-                            "createDateTime": "",
-                            "lastModifiedDateTime": "",
-                            "title": "Untitled Page",
-                            "body": "",
-                            "selfUrl": "",
-                            "noteTitle": "Untitled",
-                            "sectionTitle": "UntitledSection",
-                            "relativeLocation": ""
-                        }
-                    ],
-                    "selfUrl": ""
-                }
-            ],
-            "selfUrl": ""
-        };
-        const { books } = this.state;
-        books.push(newBook);
-        this.setState({ books: books, editMode: true});
-    }
-
     private renderModal() {
         return (
-            <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -102,4 +74,5 @@ export default class Sidebar extends React.Component<SidebarProps, SidebarState>
             </div>
         );
     }
+
 }

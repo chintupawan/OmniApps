@@ -10,9 +10,9 @@ class Navbar extends React.Component<NavbarProps, any> {
     public render() {
         return (
             <nav className="navbar navbar-light omni-theme-yellow omni-bottom-border">
-                <a className="navbar-brand" href="#" onClick={this.handleMenuClick}><i data-feather="menu" /></a>
+                <a className="navbar-brand" href="#" onClick={this.handleMenuClick}><i data-feather="menu" />Menu</a>
                 <a className="navbar-brand" href="#">Omni Notes</a>
-                <a className="navbar-brand" href="#"><i data-feather="rotate-cw" /></a>
+                <a className="navbar-brand" href="#"><i data-feather="rotate-cw" />Refresh</a>
             </nav>
         );
     }

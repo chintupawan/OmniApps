@@ -11,9 +11,9 @@ export const changePageTitle = (bookIndex: number, pageIndex: number, pageTitle:
 export const fetchMyBooks = () => {
   return (dispatch: any) => {
     dispatch(loading(true));
-    const data = fetchDummyData();
-    dispatch({ type: FETCH_MYBOOKS, payload: data });
-    dispatch(loading(false));
+    fetchDummyData().then(data => dispatch({ type: FETCH_MYBOOKS, payload: data }))
+                    .then(dispatch(loading(false)));
+    
   };
 };
 export const loading = (load: Boolean) => {

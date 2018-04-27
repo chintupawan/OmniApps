@@ -60,7 +60,8 @@ describe("<Sidebar />", () => {
     const onbookSelect = (index: number) => {
         expect(index).toBeGreaterThanOrEqual(-1);
     };
-    const sidebar = renderer.create(<Sidebar books={books} onbookSelect={onbookSelect} />);
+    const onaddNewBook = jest.fn();
+    const sidebar = renderer.create(<Sidebar books={books} onbookSelect={onbookSelect} onaddNewBook={onaddNewBook} />);
 
     it("Sidebar rendered", () => {
         var json = sidebar.toJSON();
@@ -75,7 +76,7 @@ describe("<Sidebar />", () => {
 
     it("Sidebar bookSelected mock", () => {
         const onselectMock = jest.fn();
-        const sideBarShallow = Enzyme.mount(<Sidebar books={books} onbookSelect={onselectMock}/>);
+        const sideBarShallow = Enzyme.mount(<Sidebar books={books} onbookSelect={onselectMock} onaddNewBook={onaddNewBook}/>);
         sideBarShallow.setProps({books});
         const lastAnchor = sideBarShallow.find("a").last();
         expect(lastAnchor).toBeDefined();

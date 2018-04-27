@@ -15,7 +15,7 @@ class MainContainer extends React.Component<MainProps, any> {
         this.onbookSelect = this.onbookSelect.bind(this);
         this.onpageSelect = this.onpageSelect.bind(this);
         this.onpageTitleChange = this.onpageTitleChange.bind(this);
-
+        this.onaddNewBook = this.onaddNewBook.bind(this);
         this.state = {
             showSidebar: false,
             selectedBookIndex: 0,
@@ -50,7 +50,7 @@ class MainContainer extends React.Component<MainProps, any> {
         return (
             <div>
                 <div style={showSidebar ? sidebarWidth : {}} className="omni-sidebar">
-                    <Sidebar books={books} onbookSelect={this.onbookSelect}/>
+                    <Sidebar books={books} onbookSelect={this.onbookSelect} onaddNewBook={this.onaddNewBook}/>
                 </div>
                 <div className={showSidebar ? "omni-workspace-shift" : "omni-workspace"}>
                     <header>
@@ -85,6 +85,33 @@ class MainContainer extends React.Component<MainProps, any> {
     private onpageTitleChange(title: string): void {
         const{selectedBookIndex, selectedPageIndex} = this.state;
         this.props.changePageTitle(selectedBookIndex, selectedPageIndex, title, this.props.myBooks);
+    }
+    private onaddNewBook() {
+        const newBook = {
+            "title": "Untitled Book",
+            "sections": [
+                {
+                    "title": "UntitledSection",
+                    "pages": [
+                        {
+                            "createDateTime": "",
+                            "lastModifiedDateTime": "",
+                            "title": "Untitled Page",
+                            "body": "",
+                            "selfUrl": "",
+                            "noteTitle": "Untitled",
+                            "sectionTitle": "UntitledSection",
+                            "relativeLocation": ""
+                        }
+                    ],
+                    "selfUrl": ""
+                }
+            ],
+            "selfUrl": ""
+        };
+        const { books } = this.state;
+        books.myBooks.push(newBook);
+        this.setState({ books: books, editMode: true});
     }
 }
 function mapStateToProps(state: any) {

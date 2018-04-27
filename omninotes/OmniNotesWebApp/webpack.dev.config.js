@@ -1,6 +1,8 @@
 const path = require('path');
+var webpack = require('webpack');
+const merge = require('webpack-merge');
 
-module.exports = {
+var config = {
     entry: './src/index.tsx',
     output: {
         filename: 'bundle.js',
@@ -10,6 +12,7 @@ module.exports = {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".ts", ".tsx", ".js", ".json"]
     },
+    plugins: [],
     devtool: "eval-source-map",
     module: {
         rules: [{
@@ -27,3 +30,14 @@ module.exports = {
         ]
     }
 };
+
+config.plugins.push(
+    new webpack.DefinePlugin({
+        "process.env": {
+            "NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+            "API_URL": JSON.stringify("http://localhost/omninotes/api")
+        }
+    }),
+);
+
+module.exports = config;

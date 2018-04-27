@@ -6,7 +6,7 @@ export type PageProps = { pages: Array<Page>, onpageSelect: (index: number) => v
 export type NavbarProps = { handleMenuClick: any };
 export type NavbarState = {};
 
-export type SidebarProps = { books: Array<Book>, onbookSelect: (index: number) => void };
+export type SidebarProps = { books: Array<Book>, onbookSelect: (index: number) => void, onaddNewBook: () => void; };
 export type SidebarState = { books: Array<Book>, editMode: Boolean };
 
 export type MainProps = {
@@ -27,3 +27,4 @@ export const SET_PAGETITLE = "SET_PAGETITLE";
 export const SHOW_LOADING = "SHOW_LOADING";
 export const SELECT_BOOK = "SELECT_BOOK";
 export const SELECT_PAGE = "SELECT_PAGE";
+export const APIURL = "http://localhost/omninotes/api";
