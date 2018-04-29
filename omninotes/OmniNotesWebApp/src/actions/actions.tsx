@@ -1,5 +1,5 @@
-import { SET_PAGETITLE, Page, FETCH_MYBOOKS, Book, SHOW_LOADING } from "../types/types";
-import { updatePageTitle, fetchDummyData } from "../services/booksService";
+import { SET_PAGETITLE, Page, FETCH_MYBOOKS, Book, SHOW_LOADING, NEW_BOOK } from "../types/types";
+import { updatePageTitle, fetchBooks, addNewBook } from "../services/booksService";
 
 export const changePageTitle = (bookIndex: number, pageIndex: number, pageTitle: string, books: Array<Book>) => {
   return (dispatch: any) => {
@@ -11,9 +11,15 @@ export const changePageTitle = (bookIndex: number, pageIndex: number, pageTitle:
 export const fetchMyBooks = () => {
   return (dispatch: any) => {
     dispatch(loading(true));
-    fetchDummyData().then(data => dispatch({ type: FETCH_MYBOOKS, payload: data }))
-                    .then(dispatch(loading(false)));
-    
+    fetchBooks().then(data => dispatch({ type: FETCH_MYBOOKS, payload: data }))
+      .then(dispatch(loading(false)));
+
+  };
+};
+export const addBook = (newBook: Book) => {
+  return (dispatch: any) => {
+    dispatch(loading(true));
+    addNewBook(newBook).then(data => dispatch({ type: NEW_BOOK, payload: [data] })).then(data => dispatch(loading(false)));
   };
 };
 export const loading = (load: Boolean) => {

@@ -5,7 +5,7 @@ import Sidebar from "../components/sidebar";
 import Editor from "../components/editor";
 import Pagebar from "../components/pagebar";
 import { MainProps, Book } from "../types/types";
-import { changePageTitle, fetchMyBooks } from "../actions/actions";
+import { addBook, changePageTitle, fetchMyBooks } from "../actions/actions";
 
 class MainContainer extends React.Component<MainProps, any> {
 
@@ -83,35 +83,11 @@ class MainContainer extends React.Component<MainProps, any> {
         this.setState({selectedPageIndex: pageIndex});
     }
     private onpageTitleChange(title: string): void {
-        const{selectedBookIndex, selectedPageIndex} = this.state;
-        this.props.changePageTitle(selectedBookIndex, selectedPageIndex, title, this.props.myBooks);
+        const{selectedBookIndex, selectedPageIndex, books} = this.state;
+        this.props.changePageTitle(selectedBookIndex, selectedPageIndex, title, books);
     }
-    private onaddNewBook() {
-        const newBook = {
-            "title": "Untitled Book",
-            "sections": [
-                {
-                    "title": "UntitledSection",
-                    "pages": [
-                        {
-                            "createDateTime": "",
-                            "lastModifiedDateTime": "",
-                            "title": "Untitled Page",
-                            "body": "",
-                            "selfUrl": "",
-                            "noteTitle": "Untitled",
-                            "sectionTitle": "UntitledSection",
-                            "relativeLocation": ""
-                        }
-                    ],
-                    "selfUrl": ""
-                }
-            ],
-            "selfUrl": ""
-        };
-        const { books } = this.state;
-        books.myBooks.push(newBook);
-        this.setState({ books: books, editMode: true});
+    private onaddNewBook(newbook: Book) {
+        this.props.addBook(newbook);
     }
 }
 function mapStateToProps(state: any) {
@@ -121,4 +97,4 @@ function mapStateToProps(state: any) {
     };
 }
 
-export default connect(mapStateToProps, {fetchMyBooks, changePageTitle})(MainContainer);
+export default connect(mapStateToProps, {addBook, fetchMyBooks, changePageTitle})(MainContainer);

@@ -11,6 +11,7 @@ Enzyme.configure({ adapter: new Adapter() });
 describe("<Sidebar />", () => {
     const books = [{
         "title": "031302018085012PM",
+        "editMode": false,
         "sections": [
             {
                 "title": "Untitled Section-2018-03-14T09:50:12.5986399+13:00",
@@ -35,6 +36,7 @@ describe("<Sidebar />", () => {
     },
     {
         "title": "031302018085508PM",
+        "editMode": false,
         "sections": [
             {
                 "title": "Untitled Section-031302018085508PM",

@@ -10,6 +10,8 @@ export default class Sidebar extends React.Component<SidebarProps, SidebarState>
             editMode: false
         };
         this.selectBook = this.selectBook.bind(this);
+        this.onlocalAddBook = this.onlocalAddBook.bind(this);
+        this.onaddNewBook = this.onaddNewBook.bind(this);
     }
 
     public componentWillReceiveProps(nextProps: SidebarProps) {
@@ -20,7 +22,6 @@ export default class Sidebar extends React.Component<SidebarProps, SidebarState>
 
     public render() {
         const { books } = this.state;
-        const {onaddNewBook} = this.props;
         if (!books) {
             return (<div />);
         }
@@ -29,7 +30,7 @@ export default class Sidebar extends React.Component<SidebarProps, SidebarState>
                 <li key={i} className="list-group-item">
                     <a href="#" onClick={() => this.selectBook(i)}>
                         <span><i className="omni-icon" data-feather="book" /></span>
-                        <span className="omni-book-position-abs">{b.title}</span>
+                        {b.editMode ? <input type="text" name="book" onBlur={(e) => this.onaddNewBook(i, e)} defaultValue={b.title} /> : <span className="omni-book-position-abs">{b.title}</span>}
                     </a>
                     <hr />
                 </li>);
@@ -38,8 +39,8 @@ export default class Sidebar extends React.Component<SidebarProps, SidebarState>
             <div>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item omni-transparent-back omni-center">
-                        <a href="#" onClick={() => onaddNewBook()} >
-                            <i className="omni-icon" data-feather="plus-circle" />
+                        <a href="#" onClick={() => this.onlocalAddBook()} >
+                            <i className="omni-icon" data-feather="plus-circle" /> Add new book
                         </a>
                     </li>
                     {booksLi}
@@ -47,32 +48,45 @@ export default class Sidebar extends React.Component<SidebarProps, SidebarState>
             </div>
         );
     }
+    private onaddNewBook(id: number, e: any) {
+        const { books } = this.state;
+        books[id].editMode = false;
+        books[id].title = e.target.value;
+        this.setState({ books });
+        this.props.onaddNewBook(books[id]);
+    }
     private selectBook(index: number) {
         this.props.onbookSelect(index);
     }
-
-    private renderModal() {
-        return (
-            <div className="modal" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <input type="text" name="newBook" />
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
+    private addEditBook(id: number) {
+        this.setState({ editMode: true });
     }
-
+    private onlocalAddBook() {
+        const newBook = {
+            "title": "Untitled Book",
+            "editMode": true,
+            "sections": [
+                {
+                    "title": "UntitledSection",
+                    "pages": [
+                        {
+                            "createDateTime": "",
+                            "lastModifiedDateTime": "",
+                            "title": "Untitled Page",
+                            "body": "",
+                            "selfUrl": "",
+                            "noteTitle": "Untitled",
+                            "sectionTitle": "UntitledSection",
+                            "relativeLocation": ""
+                        }
+                    ],
+                    "selfUrl": ""
+                }
+            ],
+            "selfUrl": ""
+        };
+        const { books } = this.state;
+        books.push(newBook);
+        this.setState({ books: books, editMode: true});
+    }
 }
