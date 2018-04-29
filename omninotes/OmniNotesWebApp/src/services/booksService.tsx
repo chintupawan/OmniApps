@@ -13,7 +13,9 @@ export const fetchBooks = (): Promise<any> => {
 };
 
 export const addNewBook = (newBook: Book): Promise<any> => {
-    return fetch(`${url}/${newBook.title}`, {
+    // tslint:disable-next-line:no-console
+    console.log("Creating a new book with title " + newBook.title);
+    return fetch(`${url}/Notes/${newBook.title}`, {
         method: "POST",
         headers: new Headers({
             "Content-Type": "application/json"

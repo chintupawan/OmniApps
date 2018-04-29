@@ -19,7 +19,13 @@ export const fetchMyBooks = () => {
 export const addBook = (newBook: Book) => {
   return (dispatch: any) => {
     dispatch(loading(true));
-    addNewBook(newBook).then(data => dispatch({ type: NEW_BOOK, payload: [data] })).then(data => dispatch(loading(false)));
+    addNewBook(newBook).then(data => dispatch({ type: NEW_BOOK, payload: [data] }))
+                       .then(data => dispatch(loading(false)))
+                       .catch(reason => {
+                        dispatch(loading(false));
+                        // tslint:disable-next-line:no-console
+                        console.log(reason);
+                       });
   };
 };
 export const loading = (load: Boolean) => {
